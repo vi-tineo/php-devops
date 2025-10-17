@@ -43,6 +43,14 @@ A escolha pelo **Amazon EKS (Kubernetes)** foi motivada por:
 - Ecossistema maduro para observabilidade, segurança e automação.
 - Compatibilidade com manifestos declarativos e ferramentas como Helm e ArgoCD.
 
+A escolha pelo AWS Fargate foi feita por ser uma solução serverless para containers, que oferece:
+• 	Zero gerenciamento de servidores: não há necessidade de configurar ou manter instâncias EC2.
+• 	Escalabilidade automática: ajusta recursos conforme a demanda da aplicação.
+• 	Provisionamento simplificado: ideal para projetos com foco em entrega rápida e infraestrutura enxuta.
+• 	Custo sob demanda: paga-se apenas pelo uso real de CPU e memória.
+Essa abordagem reduz a complexidade operacional e acelera o ciclo de entrega, sendo mais adequada ao escopo do desafio do que uma arquitetura baseada em servidores gerenciados manualmente.
+
+
 ### 📁 Código Terraform
 
 Foi adotado um **script monolítico** (`main.tf`) para provisionar o cluster EKS, roles e networking. Embora modularização seja recomendada em projetos maiores, a abordagem monolítica foi escolhida por:
@@ -50,6 +58,9 @@ Foi adotado um **script monolítico** (`main.tf`) para provisionar o cluster EKS
 - Simplicidade e clareza para fins de avaliação.
 - Escopo limitado e foco em demonstrar fundamentos.
 - Agilidade na entrega.
+
+Embora o código esteja versionado como Infraestrutura como Código (IaC), sua execução ainda é manual.
+O operador precisa clonar o repositório e executar  localmente. A automação completa da implantação (CD) pode ser implementada futuramente com integração ao pipeline de CI e autenticação segura na AWS.
 
 Essa decisão está documentada no `terraform/README.md`.
 
