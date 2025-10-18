@@ -2,8 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: php-app
+  namespace: production
 spec:
-  replicas: 2
+  replicas: 10
   selector:
     matchLabels:
       app: php-app
@@ -17,3 +18,19 @@ spec:
           image: vitortineo/php-devops-app:latest
           ports:
             - containerPort: 8080
+          env:
+            - name: APP_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: php-app-config
+                  key: APP_ENV
+            - name: APP_DEBUG
+              valueFrom:
+                configMapKeyRef:
+                  name: php-app-config
+                  key: APP_DEBUG
+            - name: APP_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: php-app-config
+                  key: APP_PORT
