@@ -1,0 +1,31 @@
+name: IaC - Terraform Provisioning (Somente Simulacao)
+
+on:
+  workflow_dispatch:  
+  push:
+    paths:
+      - 'terraform/**'
+      - '.github/workflows/infra.yml'
+
+jobs:
+  terraform-plan:
+    name: Terraform Plan (Dry Run)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.7  
+
+      - name: Initialize Terraform
+        run: terraform -chdir=terraform init
+
+      - name: Validate Terraform
+        run: terraform -chdir=terraform validate
+
+      - name: Terraform Plan (Simulado)
+        run: terraform -chdir=terraform plan
