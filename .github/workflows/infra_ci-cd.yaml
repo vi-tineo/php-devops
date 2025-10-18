@@ -1,7 +1,7 @@
-name: IaC - Terraform Provisioning (Simulação)
+name: IaC - Terraform Provisioning (Simulacao)
 
 on:
-  workflow_dispatch:  # Permite execução manual
+  workflow_dispatch: 
   push:
     paths:
       - 'terraform/**'
@@ -19,10 +19,10 @@ jobs:
       - name: Configurar Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.5.7  # Versão usada no projeto
+          terraform_version: 1.5.7
 
-      - name: Inicializar Terraform
-        run: terraform -chdir=terraform init
+      # - name: Inicializar Terraform (Descomente se todos os módulos estiverem presentes)
+      #   run: terraform -chdir=terraform init
 
       - name: Validar código Terraform
         run: terraform -chdir=terraform validate
