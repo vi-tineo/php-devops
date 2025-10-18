@@ -1,11 +1,11 @@
-name: IaC - Terraform Provisioning (Somente Simulacao)
+name: IaC - Terraform Provisioning (Simulação)
 
 on:
-  workflow_dispatch:  
+  workflow_dispatch:  # Permite execução manual
   push:
     paths:
       - 'terraform/**'
-      - '.github/workflows/infra.yml'
+      - '.github/workflows/infra_ci-cd.yaml'
 
 jobs:
   terraform-plan:
@@ -13,19 +13,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout do repositório
         uses: actions/checkout@v3
 
-      - name: Setup Terraform
+      - name: Configurar Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.5.7  
+          terraform_version: 1.5.7  # Versão usada no projeto
 
-      - name: Initialize Terraform
+      - name: Inicializar Terraform
         run: terraform -chdir=terraform init
 
-      - name: Validate Terraform
+      - name: Validar código Terraform
         run: terraform -chdir=terraform validate
 
-      - name: Terraform Plan (Simulado)
+      - name: Gerar plano de execução (Simulado)
         run: terraform -chdir=terraform plan
+
+      # - name: Aplicar infraestrutura (Descomente para provisionar)
+      #   run: terraform -chdir=terraform apply -auto-approve
